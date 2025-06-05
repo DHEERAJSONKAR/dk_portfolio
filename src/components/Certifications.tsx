@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { certifications } from '../data';
+import { certifications } from '../data/index'; // Updated import path
 import { Award, Calendar, ExternalLink } from 'lucide-react';
 
 const Certifications: React.FC = () => {
