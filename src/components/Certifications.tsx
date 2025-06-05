@@ -7,7 +7,7 @@ const Certifications: React.FC = () => {
   return (
     <section 
       id="certifications" 
-      className="py-20 bg-gray-50 dark:bg-dark-800"
+      className="py-16 sm:py-20 bg-gray-50 dark:bg-dark-800"
     >
       <div className="container mx-auto px-4 md:px-6">
         <motion.div 
@@ -26,7 +26,7 @@ const Certifications: React.FC = () => {
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 max-w-6xl mx-auto">
           {certifications.map((certification, index) => (
             <CertificationCard 
               key={index} 
@@ -61,7 +61,7 @@ const CertificationCard: React.FC<CertificationCardProps> = ({ certification, in
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -5 }}
     >
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-36 sm:h-48 overflow-hidden">
         <img 
           src={certification.image} 
           alt={certification.title} 
@@ -70,17 +70,17 @@ const CertificationCard: React.FC<CertificationCardProps> = ({ certification, in
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
       </div>
       
-      <div className="p-6">
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+      <div className="p-4 sm:p-6">
+        <h3 className="text-base sm:text-xl font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors line-clamp-2">
           {certification.title}
         </h3>
         
-        <div className="flex items-center mb-3 text-gray-600 dark:text-gray-400">
-          <span className="font-medium">{certification.issuer}</span>
+        <div className="flex items-center mb-2 sm:mb-3 text-gray-600 dark:text-gray-400">
+          <span className="font-medium text-sm sm:text-base">{certification.issuer}</span>
         </div>
         
-        <div className="flex items-center mb-5 text-gray-500 dark:text-gray-500 text-sm">
-          <Calendar size={14} className="mr-1" />
+        <div className="flex items-center mb-3 sm:mb-5 text-gray-500 dark:text-gray-500 text-xs sm:text-sm">
+          <Calendar size={14} className="mr-1 flex-shrink-0" />
           <span>{certification.date}</span>
         </div>
         
@@ -88,7 +88,7 @@ const CertificationCard: React.FC<CertificationCardProps> = ({ certification, in
           href={certification.certificate} 
           target="_blank" 
           rel="noopener noreferrer"
-          className="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium"
+          className="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm sm:text-base"
         >
           View Certificate <ExternalLink size={14} className="ml-1" />
         </a>
