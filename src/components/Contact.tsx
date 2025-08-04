@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Send, MapPin, Mail, Phone, CheckCircle, AlertCircle } from 'lucide-react';
 import { personalInfo } from '../data';
-import emailjs from 'emailjs-com';
+import emailjs from '@emailjs/browser';
 
 type FormState = {
   name: string;
