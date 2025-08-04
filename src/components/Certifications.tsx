@@ -105,7 +105,10 @@ const Certifications: React.FC = () => {
                   style={{
                     background: i % 2 === 0 
                       ? "linear-gradient(45deg, #f59e0b, #f97316)" 
-                      : "linear-gradient(45deg, #10b981, #059669)"
+                      : "linear-gradient(45deg, #10b981, #059669)",
+                    top: "50%",
+                    left: "50%",
+                    transformOrigin: `${25 + i * 4}px 0`,
                   }}
                   animate={{
                     rotate: [0, 360],
@@ -114,11 +117,6 @@ const Certifications: React.FC = () => {
                     duration: 6 + i * 2,
                     repeat: Infinity,
                     ease: "linear",
-                  }}
-                  style={{
-                    top: "50%",
-                    left: "50%",
-                    transformOrigin: `${25 + i * 4}px 0`,
                   }}
                 />
               ))}
