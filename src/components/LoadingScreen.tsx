@@ -45,7 +45,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
     // Enhanced progress with phase-based loading
     const progressTimer = setInterval(() => {
       setProgress(prev => {
-        const newProgress = prev + 1.5;
+        const newProgress = prev + 20; // Increased from 1.5 to 20 for 1 second loading
         
         // Update phase based on progress
         const phaseIndex = Math.floor((newProgress / 100) * loadingPhases.length);
@@ -59,20 +59,20 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
           setShowWelcome(true);
           setTimeout(() => {
             setIsVisible(false);
-            setTimeout(onLoadingComplete, 1000);
-          }, 1500);
+            setTimeout(onLoadingComplete, 200); // Reduced from 1000 to 200
+          }, 300); // Reduced from 1500 to 300
           return 100;
         }
         return newProgress;
       });
-    }, 60);
+    }, 10); // Reduced from 60 to 10 for faster updates
 
     // Phase-specific text rotation
     const textTimer = setInterval(() => {
       if (currentPhase < loadingPhases.length) {
         setCurrentText(prev => (prev + 1) % loadingPhases[currentPhase].texts.length);
       }
-    }, 1200);
+    }, 200); // Reduced from 1200 to 200 for faster text changes
 
     return () => {
       clearInterval(progressTimer);
