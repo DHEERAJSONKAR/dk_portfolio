@@ -399,44 +399,6 @@ const Hero: React.FC = () => {
             </div>
           </motion.div>
         </div>
-        
-        {/* Enhanced scroll indicator with new colors */}
-        <motion.div 
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5 }}
-        >
-          <Link to="about" smooth={true} duration={500} offset={-70}>
-            <motion.div
-              className="flex flex-col items-center cursor-pointer group"
-              onMouseEnter={() => setHoveredElement('scroll')}
-              onMouseLeave={() => setHoveredElement(null)}
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <span className="text-sm text-slate-600 dark:text-slate-400 mb-2 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                Scroll Down
-              </span>
-              <motion.div
-                className="w-6 h-10 border-2 border-emerald-600/60 rounded-full flex justify-center p-1"
-                whileHover={{ scale: 1.1 }}
-                animate={{
-                  borderColor: hoveredElement === 'scroll' ? '#059669' : '#10b98180'
-                }}
-              >
-                <motion.div
-                  className="w-1 h-3 bg-emerald-600 rounded-full"
-                  animate={{ 
-                    y: [0, 12, 0],
-                    backgroundColor: hoveredElement === 'scroll' ? '#047857' : '#059669'
-                  }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                />
-              </motion.div>
-            </motion.div>
-          </Link>
-        </motion.div>
       </motion.div>
     </section>
   );

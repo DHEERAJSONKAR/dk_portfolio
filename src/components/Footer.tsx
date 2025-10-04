@@ -1,96 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Heart, ArrowUp, Github, Linkedin, Mail, MapPin, Phone, ExternalLink, Code, Star } from 'lucide-react';
+import React from 'react';
+import { Heart, ArrowUp, Github, Linkedin, Mail, MapPin, Phone, ExternalLink, Code } from 'lucide-react';
 import { Link } from 'react-scroll';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { personalInfo, navLinks } from '../data';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
-  const controls = useAnimation();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isMouseInFooter, setIsMouseInFooter] = useState(false);
-  
-  // Handle mouse movement for glow effect
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const footer = document.getElementById('footer-container');
-    if (footer) {
-      const rect = footer.getBoundingClientRect();
-      setMousePosition({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-      });
-    }
-  };
-  
-  const handleMouseEnter = () => {
-    setIsMouseInFooter(true);
-  };
-  
-  const handleMouseLeave = () => {
-    setIsMouseInFooter(false);
-  };
-
-  // Floating shapes animation
-  const floatingShapes = Array(5).fill(0).map((_, i) => ({
-    id: i,
-    size: Math.random() * 60 + 40,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    duration: Math.random() * 20 + 15,
-    delay: Math.random() * 5
-  }));
 
   return (
     <footer 
-      id="footer-container"
-      className="relative bg-gradient-to-br from-gray-900 to-gray-950 dark:from-black dark:to-dark-900 text-white pt-20 pb-8 overflow-hidden"
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      className="relative bg-gradient-to-br from-gray-900 to-gray-950 dark:from-black dark:to-dark-900 text-white pt-20 pb-8"
     >
-      {/* Interactive mouse glow effect */}
-      {isMouseInFooter && (
-        <motion.div 
-          className="absolute pointer-events-none rounded-full bg-primary-500/10 blur-3xl opacity-30 z-0"
-          style={{ 
-            width: 300, 
-            height: 300, 
-            left: mousePosition.x - 150, 
-            top: mousePosition.y - 150,
-          }}
-          animate={{ scale: [0.8, 1.2, 0.8], opacity: [0.2, 0.4, 0.2] }}
-          transition={{ duration: 3, repeat: Infinity }}
-        />
-      )}
-      
-      {/* Animated gradient border */}
-      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-600 via-accent-500 to-secondary-500 background-pan"></div>
-      
-      {/* Floating shapes */}
-      {floatingShapes.map(shape => (
-        <motion.div
-          key={shape.id}
-          className="absolute rounded-full bg-white/5 pointer-events-none"
-          style={{
-            width: shape.size,
-            height: shape.size,
-            left: `${shape.x}%`,
-            top: `${shape.y}%`,
-            opacity: 0.1
-          }}
-          animate={{
-            y: [0, -100],
-            opacity: [0, 0.2, 0],
-            rotate: [0, 360],
-          }}
-          transition={{
-            duration: shape.duration,
-            repeat: Infinity,
-            delay: shape.delay,
-            ease: "linear"
-          }}
-        />
-      ))}
+      {/* Simple gradient border */}
+      <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary-600 via-accent-500 to-secondary-500"></div>
       
       {/* Wave divider at top */}
       <div className="absolute top-0 left-0 w-full overflow-hidden line-height-0 transform rotate-180">
@@ -161,51 +83,24 @@ const Footer: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4, staggerChildren: 0.1 }}
-          >
-            {[
-              { icon: <Github size={20} />, href: personalInfo.github, label: "GitHub", color: "from-purple-500 to-indigo-500" },
-              { icon: <Linkedin size={20} />, href: personalInfo.linkedin, label: "LinkedIn", color: "from-blue-500 to-cyan-500" },
-              { icon: <Mail size={20} />, href: `mailto:${personalInfo.email}`, label: "Email", color: "from-red-500 to-orange-500" }
-            ].map((social, index) => (
-              <motion.a
-                key={index}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.label}
-                className="flex items-center justify-center w-12 h-12 rounded-full bg-white/5 text-white border border-white/10 relative overflow-hidden group"
-                whileHover={{ 
-                  scale: 1.15,
-                  y: -5,
-                  boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.3)"
-                }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: 0.1 * index + 0.5 }}
-              >
-                <motion.div 
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r"
-                  style={{ 
-                    backgroundImage: `linear-gradient(to right, var(--tw-gradient-stops))`,
-                    '--tw-gradient-from': social.color.split(' ')[0].replace('from-', ''),
-                    '--tw-gradient-to': social.color.split(' ')[1].replace('to-', '')
-                  }}
-                />
-                <span className="relative z-10">{social.icon}</span>
-                
-                {/* Shine effect */}
-                <span className="absolute inset-0 overflow-hidden rounded-full opacity-0 group-hover:opacity-100">
-                  <motion.span 
-                    className="absolute w-40 h-40 -translate-x-1/2 -translate-y-1/2 bg-white/20 blur-md"
-                    style={{ top: "50%", left: "50%" }}
-                    animate={{ rotate: [0, 360] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                  />
-                </span>
-              </motion.a>
-            ))}
+          >              {[
+                { icon: <Github size={20} />, href: personalInfo.github, label: "GitHub" },
+                { icon: <Linkedin size={20} />, href: personalInfo.linkedin, label: "LinkedIn" },
+                { icon: <Mail size={20} />, href: `mailto:${personalInfo.email}`, label: "Email" }
+              ].map((social, index) => (
+                <motion.a
+                  key={index}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="flex items-center justify-center w-12 h-12 rounded-full bg-white/5 text-white border border-white/10 hover:bg-white/10 transition-colors cursor-pointer"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
           </motion.div>
         </motion.div>
         
@@ -299,22 +194,11 @@ const Footer: React.FC = () => {
                     duration={500}
                     className="text-gray-400 hover:text-primary-400 transition-colors cursor-pointer flex items-center group text-sm"
                   >
-                    <motion.span 
-                      className="w-1.5 h-1.5 rounded-full bg-gray-700 group-hover:bg-primary-500 mr-2 transition-colors"
-                      whileHover={{ scale: 1.5 }}
-                      animate={{
-                        scale: [1, 1.2, 1],
-                        transition: { duration: 1, repeat: Infinity, repeatDelay: 1 }
-                      }}
-                    />
+                    <span className="w-1.5 h-1.5 rounded-full bg-gray-700 group-hover:bg-primary-500 mr-2 transition-colors" />
                     {link.title}
-                    <motion.span 
-                      className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                      animate={{ x: [0, 3, 0] }}
-                      transition={{ repeat: Infinity, duration: 1, repeatType: "loop" }}
-                    >
+                    <span className="ml-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       <ExternalLink size={10} />
-                    </motion.span>
+                    </span>
                   </Link>
                 </motion.li>
               ))}
@@ -417,23 +301,9 @@ const Footer: React.FC = () => {
               />
               
               <div className="flex items-center mb-3 relative z-10">
-                <motion.div 
-                  className="w-10 h-10 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 flex items-center justify-center mr-3"
-                  animate={{ 
-                    rotate: [0, 5, 0, -5, 0],
-                    transition: { duration: 5, repeat: Infinity }
-                  }}
-                >
-                  <motion.div
-                    animate={{ 
-                      scale: [1, 1.2, 1],
-                      rotate: [0, 360],
-                      transition: { duration: 3, repeat: Infinity }
-                    }}
-                  >
-                    <Star size={18} className="text-yellow-400" />
-                  </motion.div>
-                </motion.div>
+                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-primary-500/20 to-secondary-500/20 flex items-center justify-center mr-3">
+                  <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                </div>
                 <p className="text-white text-sm font-medium">Available for new opportunities</p>
               </div>
               
