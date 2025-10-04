@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-scroll';
 import { Menu, X, Sun, Moon, Github, Linkedin, Sparkles, Zap } from 'lucide-react';
-import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import { navLinks, personalInfo } from '../data';
 
@@ -10,16 +10,8 @@ const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const { darkMode, toggleTheme } = useTheme();
   const navRef = useRef<HTMLElement>(null);
-
-  // Enhanced mouse tracking
-  const cursorX = useMotionValue(0);
-  const cursorY = useMotionValue(0);
-  const springConfig = { damping: 25, stiffness: 700 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
 
   // Handle scroll events
   useEffect(() => {
@@ -49,48 +41,10 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Enhanced mouse tracking for navbar
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (navRef.current) {
-        const rect = navRef.current.getBoundingClientRect();
-        setMousePosition({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top
-        });
-        cursorX.set(e.clientX - rect.left);
-        cursorY.set(e.clientY - rect.top);
-      }
-    };
 
-    if (navRef.current) {
-      navRef.current.addEventListener('mousemove', handleMouseMove);
-    }
-
-    return () => {
-      if (navRef.current) {
-        navRef.current.removeEventListener('mousemove', handleMouseMove);
-      }
-    };
-  }, []);
 
   return (
     <>
-      {/* Floating cursor follower for navbar */}
-      <motion.div
-        className="fixed pointer-events-none z-50 w-6 h-6 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 mix-blend-difference"
-        style={{
-          x: cursorXSpring,
-          y: cursorYSpring,
-          transform: 'translate(-50%, -50%)'
-        }}
-        animate={{
-          scale: hoveredLink ? 2 : 0,
-          opacity: hoveredLink ? 0.8 : 0,
-        }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
-      />
-
       <motion.nav 
         ref={navRef}
         className={`fixed w-full z-40 ${
@@ -128,7 +82,7 @@ const Navbar: React.FC = () => {
             <Link
               to="home"
               smooth={true}
-              duration={500}
+              duration={300}
               className="text-xl md:text-2xl font-bold cursor-pointer relative group"
             >
               <motion.div className="flex items-center">
@@ -198,13 +152,14 @@ const Navbar: React.FC = () => {
                     to={link.id}
                     smooth={true}
                     spy={true}
-                    duration={500}
+                    duration={100}
                     offset={-70}
-                    className={`cursor-pointer px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-300 relative overflow-hidden ${
+                    className={`cursor-pointer px-4 py-2 text-sm font-semibold rounded-xl transition-colors duration-100 relative overflow-hidden select-none ${
                       active === link.id
                         ? 'text-white'
                         : 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400'
                     }`}
+                    style={{ cursor: 'pointer' }}
                   >
                     {/* Active background */}
                     {active === link.id && (
@@ -225,18 +180,6 @@ const Navbar: React.FC = () => {
                     />
                     
                     <span className="relative z-10">{link.title}</span>
-                    
-                    {/* Glowing dot for active state */}
-                    {active === link.id && (
-                      <motion.div
-                        className="absolute top-1 right-1 w-2 h-2 bg-yellow-300 rounded-full"
-                        animate={{
-                          scale: [1, 1.5, 1],
-                          opacity: [1, 0.7, 1],
-                        }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                      />
-                    )}
                   </Link>
                 </motion.div>
               ))}
@@ -249,24 +192,11 @@ const Navbar: React.FC = () => {
                 href={personalInfo.github} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="p-2 rounded-xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl border border-emerald-200/30 dark:border-slate-700/30 text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-300 group"
-                onMouseEnter={() => setHoveredLink('github')}
-                onMouseLeave={() => setHoveredLink(null)}
-                whileHover={{ 
-                  scale: 1.1,
-                  rotate: 5,
-                  boxShadow: "0 10px 25px rgba(16, 185, 129, 0.3)"
-                }}
+                className="p-2 rounded-xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl border border-emerald-200/30 dark:border-slate-700/30 text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all duration-200 group cursor-pointer"
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <motion.div
-                  animate={{ 
-                    rotate: hoveredLink === 'github' ? 360 : 0 
-                  }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <Github size={18} />
-                </motion.div>
+                <Github size={18} />
               </motion.a>
 
               <motion.a 
@@ -276,18 +206,14 @@ const Navbar: React.FC = () => {
                 className="p-2 rounded-xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl border border-emerald-200/30 dark:border-slate-700/30 text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all duration-300"
                 onMouseEnter={() => setHoveredLink('linkedin')}
                 onMouseLeave={() => setHoveredLink(null)}
-                whileHover={{ 
-                  scale: 1.1, 
-                  rotate: -5,
-                  boxShadow: "0 10px 25px rgba(6, 182, 212, 0.3)"
-                }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <motion.div
                   animate={{ 
-                    rotate: hoveredLink === 'linkedin' ? -360 : 0 
+                    scale: hoveredLink === 'linkedin' ? 1.1 : 1 
                   }}
-                  transition={{ duration: 0.6 }}
+                  transition={{ duration: 0.3 }}
                 >
                   <Linkedin size={18} />
                 </motion.div>
@@ -296,29 +222,18 @@ const Navbar: React.FC = () => {
               {/* Enhanced Theme Toggle */}
               <motion.button 
                 onClick={toggleTheme}
-                className="p-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden"
+                className="p-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-600 text-white shadow-lg hover:shadow-xl transition-all duration-200 relative overflow-hidden cursor-pointer"
                 aria-label="Toggle theme"
-                onMouseEnter={() => setHoveredLink('theme')}
-                onMouseLeave={() => setHoveredLink(null)}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {/* Animated background */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-600"
-                  animate={{
-                    x: hoveredLink === 'theme' ? ["-100%", "100%"] : "-100%",
-                  }}
-                  transition={{ duration: 1 }}
-                />
-                
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
                     key={darkMode ? "dark" : "light"}
-                    initial={{ y: -20, opacity: 0, rotate: -180 }}
-                    animate={{ y: 0, opacity: 1, rotate: 0 }}
-                    exit={{ y: 20, opacity: 0, rotate: 180 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.15 }}
                     className="relative z-10"
                   >
                     {darkMode ? <Sun size={18} /> : <Moon size={18} />}
@@ -396,10 +311,10 @@ const Navbar: React.FC = () => {
                       to={link.id}
                       smooth={true}
                       spy={true}
-                      duration={500}
+                      duration={250}
                       offset={-70}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`cursor-pointer py-3 px-4 text-sm font-semibold block relative rounded-xl transition-all duration-300 ${
+                      className={`cursor-pointer py-3 px-4 text-sm font-semibold block relative rounded-xl transition-all duration-150 ${
                         active === link.id
                           ? 'text-white bg-gradient-to-r from-emerald-500 to-cyan-600 shadow-lg'
                           : 'text-gray-700 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-slate-700/50'
@@ -419,8 +334,8 @@ const Navbar: React.FC = () => {
                         {active === link.id && (
                           <motion.div
                             className="ml-auto"
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{ duration: 1, repeat: Infinity }}
                           >
                             <Zap size={14} className="text-white" />
                           </motion.div>
@@ -442,8 +357,8 @@ const Navbar: React.FC = () => {
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="p-3 rounded-xl bg-gradient-to-r from-slate-600 to-slate-700 text-white shadow-lg"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    whileTap={{ scale: 0.9 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     <Github size={20} />
                   </motion.a>
@@ -452,8 +367,8 @@ const Navbar: React.FC = () => {
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="p-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-700 text-white shadow-lg"
-                    whileHover={{ scale: 1.1, rotate: -5 }}
-                    whileTap={{ scale: 0.9 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     <Linkedin size={20} />
                   </motion.a>

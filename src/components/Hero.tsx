@@ -1,11 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-scroll';
-import { ArrowDown, Github, Linkedin, Code, Sparkles, Zap, Rocket, Star, Download } from 'lucide-react';
+import { Github, Linkedin, Code, Sparkles, Zap, Rocket, Star, Download } from 'lucide-react';
 import { personalInfo } from '../data';
 
 const Hero: React.FC = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isTyping, setIsTyping] = useState(true);
   const [hoveredElement, setHoveredElement] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -15,22 +14,15 @@ const Hero: React.FC = () => {
     offset: ["start start", "end start"]
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -200]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  // Reduced parallax effect for better performance
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  // Keep content visible longer during scroll
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.3]);
 
-  // Mouse tracking for interactive effects
+  // Simplified typing animation effect
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // Typing animation effect
-  useEffect(() => {
-    const timer = setTimeout(() => setIsTyping(false), 3000);
+    const timer = setTimeout(() => setIsTyping(false), 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -59,48 +51,26 @@ const Hero: React.FC = () => {
           }}
         />
 
-        {/* Enhanced floating particles with new colors */}
-        {[...Array(25)].map((_, i) => (
+        {/* Reduced floating particles for performance */}
+        {[...Array(4)].map((_, i) => (
           <motion.div
             key={i}
-            className={`absolute rounded-full ${
-              i % 4 === 0 ? 'w-2 h-2 bg-emerald-400/40' : 
-              i % 4 === 1 ? 'w-3 h-3 bg-cyan-400/35' : 
-              i % 4 === 2 ? 'w-1 h-1 bg-purple-400/45' :
-              'w-2 h-2 bg-teal-400/35'
-            }`}
+            className="absolute w-2 h-2 bg-emerald-400/20 rounded-full"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${20 + i * 20}%`,
+              top: `${20 + i * 15}%`,
             }}
             animate={{
-              y: [-25, 25, -25],
-              x: [-20, 20, -20],
-              opacity: [0.3, 0.9, 0.3],
-              scale: [0.5, 1.3, 0.5],
+              y: [-10, 10, -10],
+              opacity: [0.2, 0.4, 0.2],
             }}
             transition={{
-              duration: 5 + Math.random() * 3,
+              duration: 6,
               repeat: Infinity,
-              delay: Math.random() * 3,
-              ease: "easeInOut",
+              delay: i * 0.5,
             }}
           />
         ))}
-
-        {/* Enhanced cursor follower with new gradient */}
-        <motion.div
-          className="fixed top-0 left-0 w-8 h-8 bg-gradient-to-br from-emerald-400 via-cyan-500 to-purple-600 rounded-full pointer-events-none z-50 mix-blend-multiply dark:mix-blend-screen"
-          style={{
-            x: mousePosition.x - 16,
-            y: mousePosition.y - 16,
-          }}
-          animate={{
-            scale: hoveredElement ? 1.8 : 1,
-            opacity: hoveredElement ? 0.9 : 0.6,
-          }}
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
-        />
 
         {/* Parallax background shapes with new colors */}
         <motion.div 
@@ -306,7 +276,7 @@ const Hero: React.FC = () => {
                 { href: personalInfo.github, icon: Github, name: 'github', color: 'from-slate-700 to-slate-900' },
                 { href: personalInfo.linkedin, icon: Linkedin, name: 'linkedin', color: 'from-cyan-600 to-cyan-800' },
                 { href: "/resume(dheeraj)1.pdf", icon: Download, name: 'resume', color: 'from-emerald-500 to-emerald-700', download: true }
-              ].map((social, index) => (
+              ].map((social) => (
                 <motion.a
                   key={social.name}
                   href={social.href}
@@ -401,33 +371,28 @@ const Hero: React.FC = () => {
                   />
                 </div>
 
-                {/* Enhanced floating skill icons with new colors */}
+                {/* Simplified floating skill icons - reduced for performance */}
                 {[
                   { Icon: Code, color: 'from-emerald-500 to-emerald-700' },
-                  { Icon: Star, color: 'from-cyan-500 to-cyan-700' },
-                  { Icon: Zap, color: 'from-purple-500 to-purple-700' },
-                  { Icon: Rocket, color: 'from-teal-500 to-teal-700' }
+                  { Icon: Star, color: 'from-cyan-500 to-cyan-700' }
                 ].map(({ Icon, color }, i) => (
                   <motion.div
                     key={i}
-                    className={`absolute w-14 h-14 bg-gradient-to-br ${color} rounded-full flex items-center justify-center shadow-lg border-2 border-white/80 dark:border-slate-700/80 backdrop-blur-sm`}
+                    className={`absolute w-12 h-12 bg-gradient-to-br ${color} rounded-full flex items-center justify-center shadow-lg border-2 border-white/80 dark:border-slate-700/80 backdrop-blur-sm`}
                     animate={{
                       rotate: [0, 360],
-                      y: [-8, 8, -8],
-                      scale: hoveredElement === 'profile-image' ? [1, 1.2, 1] : [1, 1.1, 1],
+                      y: [-5, 5, -5],
                     }}
                     transition={{
-                      rotate: { duration: 15, repeat: Infinity, ease: "linear" },
-                      y: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: i * 0.3 },
-                      scale: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: i * 0.2 },
+                      rotate: { duration: 20, repeat: Infinity, ease: "linear" },
+                      y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 },
                     }}
                     style={{
-                      top: `${15 + i * 22}%`,
-                      left: i % 2 === 0 ? '-10%' : '110%',
+                      top: `${20 + i * 40}%`,
+                      left: i % 2 === 0 ? '-8%' : '108%',
                     }}
-                    whileHover={{ scale: 1.3 }}
                   >
-                    <Icon className="text-white" size={22} />
+                    <Icon className="text-white" size={20} />
                   </motion.div>
                 ))}
               </motion.div>

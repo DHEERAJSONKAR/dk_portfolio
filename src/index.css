@@ -174,3 +174,102 @@
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
   }
 }
+
+/* Performance optimizations */
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    overflow-x: hidden;
+  }
+  
+  /* Optimize scroll performance */
+  * {
+    scroll-behavior: smooth;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+  }
+  
+  /* Reduce GPU usage on mobile */
+  @media (max-width: 768px) {
+    * {
+      will-change: auto !important;
+      transform: none !important;
+    }
+    
+    .motion-reduce {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Hardware acceleration for animations */
+@layer utilities {
+  .hw-accelerate {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+  
+  .optimize-animations {
+    backface-visibility: hidden;
+    perspective: 1000px;
+    transform: translate3d(0, 0, 0);
+  }
+  
+  /* Simplified animations */
+  .simple-fade-in {
+    animation: simpleFadeIn 0.6s ease-out forwards;
+  }
+  
+  @keyframes simpleFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .simple-slide-up {
+    animation: simpleSlideUp 0.4s ease-out forwards;
+  }
+  
+  @keyframes simpleSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Reduce complex gradients on lower-end devices */
+  @media (max-width: 768px) {
+    .bg-gradient-complex {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    }
+  }
+}

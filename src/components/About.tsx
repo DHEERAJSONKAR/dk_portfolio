@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { personalInfo } from '../data';
 import { MapPin, Mail, Phone, GraduationCap, Calendar, Building, Download, ExternalLink, User, Sparkles, Zap, Trophy } from 'lucide-react';
 
@@ -25,25 +25,23 @@ const About: React.FC = () => {
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
-      {/* Floating Particles */}
-      {[...Array(20)].map((_, i) => (
+      {/* Simplified Particles */}
+      {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-2 h-2 bg-indigo-400/30 rounded-full"
+          className="absolute w-2 h-2 bg-indigo-400/20 rounded-full"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
           }}
           animate={{
-            y: [-20, 20, -20],
-            x: [-15, 15, -15],
-            opacity: [0.3, 0.8, 0.3],
-            scale: [0.5, 1, 0.5],
+            y: [-10, 10, -10],
+            opacity: [0.2, 0.5, 0.2],
           }}
           transition={{
-            duration: 4 + Math.random() * 2,
+            duration: 5,
             repeat: Infinity,
-            delay: Math.random() * 2,
+            delay: i * 0.5,
           }}
         />
       ))}

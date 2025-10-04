@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { skills } from '../data';
-import { Code, Zap, Star, Sparkles, Trophy, Target, Brain, Rocket } from 'lucide-react';
+import { Code, Zap, Star, Trophy, Target, Brain, Rocket } from 'lucide-react';
 
 const Skills: React.FC = () => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
@@ -25,28 +25,26 @@ const Skills: React.FC = () => {
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
-      {/* Floating Tech Icons */}
-      {[...Array(15)].map((_, i) => (
+      {/* Simplified Tech Icons */}
+      {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute text-indigo-200/20 dark:text-indigo-800/20 text-2xl"
+          className="absolute text-indigo-200/15 dark:text-indigo-800/15 text-xl"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
           }}
           animate={{
-            y: [-15, 15, -15],
-            x: [-8, 8, -8],
-            rotate: [0, 180, 360],
-            opacity: [0.2, 0.5, 0.2],
+            y: [-10, 10, -10],
+            opacity: [0.2, 0.4, 0.2],
           }}
           transition={{
-            duration: 6 + Math.random() * 4,
+            duration: 5,
             repeat: Infinity,
-            delay: Math.random() * 2,
+            delay: i * 1,
           }}
         >
-          {['⚛️', '🔥', '⚡', '🚀', '💎', '🎯'][Math.floor(Math.random() * 6)]}
+          {['⚛️', '🔥', '⚡', '🚀', '💎', '🎯'][i]}
         </motion.div>
       ))}
 
@@ -238,7 +236,7 @@ const Skills: React.FC = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            {['Git', 'Github', 'SQL', 'TypeScript', 'Next.js', 'Angular.js', '.Net', 'Firebase'].map((tech, i) => (
+            {['Git', 'Github', 'SQL', 'TypeScript', 'Next.js', 'Angular.js', '.Net', 'Firebase'].map((tech) => (
               <motion.span 
                 key={tech}
                 className="relative px-6 py-3 rounded-2xl text-sm font-bold bg-white/80 dark:bg-dark-700/80 backdrop-blur-xl text-gray-800 dark:text-gray-200 border border-white/20 dark:border-gray-600/20 shadow-lg overflow-hidden group cursor-pointer"
@@ -285,10 +283,6 @@ interface SkillCardProps {
 }
 
 const SkillCard: React.FC<SkillCardProps> = ({ skill, index, isHovered, onHover }) => {
-  const springConfig = { stiffness: 300, damping: 30 };
-  const springX = useSpring(0, springConfig);
-  const springY = useSpring(0, springConfig);
-
   return (
     <motion.div 
       className="relative group cursor-pointer"
@@ -305,23 +299,8 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, index, isHovered, onHover 
           }
         },
       }}
-      onMouseMove={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        springX.set((e.clientX - centerX) * 0.1);
-        springY.set((e.clientY - centerY) * 0.1);
-      }}
       onMouseEnter={() => onHover(skill.name)}
-      onMouseLeave={() => {
-        springX.set(0);
-        springY.set(0);
-        onHover(null);
-      }}
-      style={{
-        x: springX,
-        y: springY,
-      }}
+      onMouseLeave={() => onHover(null)}
     >
       {/* Enhanced Glow Effect */}
       <motion.div 

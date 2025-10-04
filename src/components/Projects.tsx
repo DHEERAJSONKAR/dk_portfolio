@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { projects } from '../data';
-import { ExternalLink, Github, Code, Star, Sparkles, Play, Eye } from 'lucide-react';
+import { Github, Code, Star, Sparkles, Play, Eye } from 'lucide-react';
 
 const Projects: React.FC = () => {
   const [filter, setFilter] = useState<'all' | 'featured'>('all');
@@ -29,28 +29,26 @@ const Projects: React.FC = () => {
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
-      {/* Floating Code Elements */}
-      {[...Array(12)].map((_, i) => (
+      {/* Simplified Code Elements */}
+      {[...Array(4)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute text-primary-200/20 dark:text-primary-800/20 text-4xl font-mono"
+          className="absolute text-primary-200/15 dark:text-primary-800/15 text-2xl font-mono"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
           }}
           animate={{
-            y: [-20, 20, -20],
-            x: [-10, 10, -10],
-            rotate: [0, 360],
-            opacity: [0.1, 0.3, 0.1],
+            y: [-10, 10, -10],
+            opacity: [0.1, 0.2, 0.1],
           }}
           transition={{
-            duration: 8 + Math.random() * 4,
+            duration: 6,
             repeat: Infinity,
-            delay: Math.random() * 2,
+            delay: i * 1.5,
           }}
         >
-          {['</', '/>', '{}', '[]', '()', '<>'][Math.floor(Math.random() * 6)]}
+          {['</', '/>', '{}', '[]'][i]}
         </motion.div>
       ))}
 
@@ -246,36 +244,15 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
-  const springConfig = { stiffness: 300, damping: 30 };
-  const springX = useSpring(0, springConfig);
-  const springY = useSpring(0, springConfig);
-
   return (
     <motion.div 
       className="relative group cursor-pointer"
-      initial={{ opacity: 0, y: 60, scale: 0.8 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ 
-        duration: 0.6, 
-        delay: index * 0.1,
-        type: "spring",
-        stiffness: 100
-      }}
-      onMouseMove={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        springX.set((e.clientX - centerX) * 0.1);
-        springY.set((e.clientY - centerY) * 0.1);
-      }}
-      onMouseLeave={() => {
-        springX.set(0);
-        springY.set(0);
-      }}
-      style={{
-        x: springX,
-        y: springY,
+        duration: 0.5, 
+        delay: index * 0.1
       }}
     >
       {/* Enhanced Glow Effect */}
