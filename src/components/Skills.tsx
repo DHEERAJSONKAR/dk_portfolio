@@ -20,7 +20,7 @@ const Skills: React.FC = () => {
     <section 
       ref={sectionRef}
       id="skills" 
-      className="relative py-24 bg-gradient-to-br from-indigo-50 via-purple-50/30 to-pink-50/30 dark:from-dark-900 dark:via-indigo-900/20 dark:to-purple-900/20 overflow-hidden"
+      className="relative py-16 sm:py-24 bg-gradient-to-br from-indigo-50 via-purple-50/30 to-pink-50/30 dark:from-dark-900 dark:via-indigo-900/20 dark:to-purple-900/20 overflow-hidden"
     >
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
@@ -61,7 +61,7 @@ const Skills: React.FC = () => {
       <div className="container relative mx-auto px-4 md:px-6">
         {/* Enhanced Header */}
         <motion.div 
-          className="text-center mb-20"
+          className="text-center mb-16 md:mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -76,7 +76,7 @@ const Skills: React.FC = () => {
             transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
           >
             <motion.div 
-              className="relative w-24 h-24 rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-600 shadow-2xl flex items-center justify-center"
+              className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-600 shadow-2xl flex items-center justify-center"
               whileHover={{ 
                 scale: 1.1,
                 rotate: [0, 10, -10, 0],
@@ -84,7 +84,7 @@ const Skills: React.FC = () => {
               }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Brain className="text-white" size={40} />
+              <Brain className="text-white" size={28} />
               
               {/* Orbiting Skill Icons */}
               {[Code, Zap, Star, Rocket].map((Icon, i) => (

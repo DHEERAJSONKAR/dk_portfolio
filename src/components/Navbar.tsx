@@ -83,7 +83,7 @@ const Navbar: React.FC = () => {
               to="home"
               smooth={true}
               duration={300}
-              className="text-xl md:text-2xl font-bold cursor-pointer relative group"
+              className="text-lg sm:text-xl md:text-2xl font-bold cursor-pointer relative group"
             >
               <motion.div className="flex items-center">
                 {/* Animated logo icon */}

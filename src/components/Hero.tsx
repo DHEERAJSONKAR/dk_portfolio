@@ -30,7 +30,7 @@ const Hero: React.FC = () => {
     <section 
       ref={sectionRef}
       id="home" 
-      className="relative min-h-screen flex items-center py-16 bg-gradient-to-br from-slate-50 via-emerald-50/30 to-cyan-50/30 dark:from-dark-900 dark:via-slate-800 dark:to-emerald-900/20 overflow-hidden"
+      className="relative min-h-screen flex items-center py-4 sm:py-8 md:py-16 bg-gradient-to-br from-slate-50 via-emerald-50/30 to-cyan-50/30 dark:from-dark-900 dark:via-slate-800 dark:to-emerald-900/20 overflow-hidden"
     >
       {/* Enhanced Background with Better Colors */}
       <div className="absolute inset-0">
@@ -84,20 +84,20 @@ const Hero: React.FC = () => {
       </div>
       
       <motion.div 
-        className="container mx-auto px-4 md:px-6 relative z-10"
+        className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 relative z-10 w-full"
         style={{ opacity }}
       >
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 lg:gap-12 min-h-screen lg:min-h-0">
           {/* Enhanced Content Section */}
           <motion.div 
-            className="lg:w-3/5 text-center lg:text-left"
+            className="w-full lg:w-3/5 text-center lg:text-left order-2 lg:order-1"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             {/* Enhanced greeting badge with new colors */}
             <motion.div
-              className="inline-flex items-center bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl px-6 py-3 rounded-full border border-emerald-200/60 dark:border-slate-700/60 shadow-lg mb-6"
+              className="inline-flex items-center bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl px-4 sm:px-6 py-2 sm:py-3 rounded-full border border-emerald-200/60 dark:border-slate-700/60 shadow-lg mb-4 sm:mb-6 text-sm sm:text-base"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
@@ -124,7 +124,7 @@ const Hero: React.FC = () => {
             
             {/* Enhanced Name with new gradient */}
             <motion.h1 
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+              className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
@@ -160,7 +160,7 @@ const Hero: React.FC = () => {
             
             {/* Enhanced role section with new gradient */}
             <motion.div
-              className="h-20 mb-8 flex items-center justify-center lg:justify-start"
+              className="h-12 xs:h-14 sm:h-16 md:h-20 mb-6 sm:mb-8 flex items-center justify-center lg:justify-start"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
@@ -168,7 +168,7 @@ const Hero: React.FC = () => {
               <AnimatePresence mode="wait">
                 <motion.h2
                   key={personalInfo.title}
-                  className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-emerald-600 via-cyan-600 to-purple-600 bg-clip-text text-transparent dark:from-emerald-400 dark:via-cyan-400 dark:to-purple-400"
+                  className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-emerald-600 via-cyan-600 to-purple-600 bg-clip-text text-transparent dark:from-emerald-400 dark:via-cyan-400 dark:to-purple-400"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -20, opacity: 0 }}
@@ -184,7 +184,7 @@ const Hero: React.FC = () => {
             
             {/* Enhanced bio with reveal animation */}
             <motion.p 
-              className="text-lg md:text-xl text-slate-700 dark:text-slate-300 mb-10 max-w-2xl leading-relaxed"
+              className="text-sm xs:text-base sm:text-lg md:text-xl text-slate-700 dark:text-slate-300 mb-8 sm:mb-10 max-w-2xl leading-relaxed px-4 sm:px-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
@@ -194,7 +194,7 @@ const Hero: React.FC = () => {
             
             {/* Enhanced action buttons with new colors */}
             <motion.div 
-              className="flex flex-col sm:flex-row gap-4 mb-8"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8 px-4 sm:px-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 }}
@@ -204,13 +204,14 @@ const Hero: React.FC = () => {
                 onMouseLeave={() => setHoveredElement(null)}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto"
               >
                 <Link
                   to="projects"
                   smooth={true}
                   duration={500}
                   offset={-70}
-                  className="relative inline-flex items-center px-8 py-4 bg-gradient-to-r from-emerald-600 via-cyan-600 to-emerald-600 text-white font-bold rounded-2xl shadow-lg overflow-hidden group cursor-pointer"
+                  className="relative inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-emerald-600 via-cyan-600 to-emerald-600 text-white font-bold rounded-2xl shadow-lg overflow-hidden group cursor-pointer text-sm sm:text-base"
                 >
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-purple-600 to-cyan-600"
@@ -228,7 +229,7 @@ const Hero: React.FC = () => {
                     animate={{ rotate: hoveredElement === 'projects-btn' ? 360 : 0 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <Rocket className="mr-2 relative z-10" size={20} />
+                    <Rocket className="mr-2 relative z-10" size={18} />
                   </motion.div>
                   <span className="relative z-10">View Projects</span>
                 </Link>
@@ -239,13 +240,14 @@ const Hero: React.FC = () => {
                 onMouseLeave={() => setHoveredElement(null)}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto"
               >
                 <Link
                   to="contact"
                   smooth={true}
                   duration={500}
                   offset={-70}
-                  className="relative inline-flex items-center px-8 py-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl text-slate-800 dark:text-white font-bold rounded-2xl border border-emerald-200/60 dark:border-slate-700/60 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group overflow-hidden"
+                  className="relative inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl text-slate-800 dark:text-white font-bold rounded-2xl border border-emerald-200/60 dark:border-slate-700/60 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group overflow-hidden text-sm sm:text-base"
                 >
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-emerald-50 to-cyan-50 dark:from-slate-700 dark:to-slate-600 opacity-0 group-hover:opacity-100"
@@ -258,7 +260,7 @@ const Hero: React.FC = () => {
                     }}
                     transition={{ duration: 0.4 }}
                   >
-                    <Zap className="mr-2 relative z-10" size={20} />
+                    <Zap className="mr-2 relative z-10" size={18} />
                   </motion.div>
                   <span className="relative z-10">Contact Me</span>
                 </Link>
@@ -267,7 +269,7 @@ const Hero: React.FC = () => {
 
             {/* Enhanced social links with new colors */}
             <motion.div 
-              className="flex items-center justify-center lg:justify-start gap-4"
+              className="flex items-center justify-center lg:justify-start gap-3 sm:gap-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2 }}
@@ -283,7 +285,7 @@ const Hero: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   download={social.download}
-                  className="relative p-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl rounded-xl border border-emerald-200/50 dark:border-slate-700/50 shadow-lg text-slate-700 dark:text-slate-300 transition-all duration-300 group overflow-hidden"
+                  className="relative p-3 sm:p-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl rounded-xl border border-emerald-200/50 dark:border-slate-700/50 shadow-lg text-slate-700 dark:text-slate-300 transition-all duration-300 group overflow-hidden"
                   onMouseEnter={() => setHoveredElement(social.name)}
                   onMouseLeave={() => setHoveredElement(null)}
                   whileHover={{ scale: 1.1, y: -3 }}
@@ -300,7 +302,7 @@ const Hero: React.FC = () => {
                     }}
                     transition={{ duration: 0.6 }}
                   >
-                    <social.icon className="relative z-10 group-hover:text-white transition-colors duration-300" size={24} />
+                    <social.icon className="relative z-10 group-hover:text-white transition-colors duration-300" size={20} />
                   </motion.div>
                 </motion.a>
               ))}
@@ -309,7 +311,7 @@ const Hero: React.FC = () => {
           
           {/* Enhanced Image Section with new colors */}
           <motion.div 
-            className="lg:w-2/5 flex justify-center"
+            className="w-full lg:w-2/5 flex justify-center order-1 lg:order-2 mt-4 sm:mt-8 lg:mt-0"
             initial={{ opacity: 0, scale: 0.8, rotateY: -30 }}
             animate={{ opacity: 1, scale: 1, rotateY: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -317,7 +319,7 @@ const Hero: React.FC = () => {
             <div className="relative">
               {/* Enhanced background layers with new colors */}
               <motion.div 
-                className="absolute -inset-8 bg-gradient-to-br from-emerald-400/25 via-cyan-500/25 to-purple-600/25 rounded-full blur-2xl"
+                className="absolute -inset-4 sm:-inset-6 md:-inset-8 bg-gradient-to-br from-emerald-400/25 via-cyan-500/25 to-purple-600/25 rounded-full blur-2xl"
                 animate={{
                   scale: [1, 1.1, 1],
                   rotate: [0, 180, 360],
@@ -330,7 +332,7 @@ const Hero: React.FC = () => {
               />
               
               <motion.div 
-                className="absolute -inset-4 bg-gradient-to-br from-emerald-300/35 to-cyan-500/35 rounded-full blur-xl"
+                className="absolute -inset-2 sm:-inset-3 md:-inset-4 bg-gradient-to-br from-emerald-300/35 to-cyan-500/35 rounded-full blur-xl"
                 animate={{
                   scale: [1.1, 1, 1.1],
                   rotate: [360, 180, 0],
@@ -344,13 +346,13 @@ const Hero: React.FC = () => {
 
               {/* Main image container with enhanced effects */}
               <motion.div 
-                className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96"
+                className="relative w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96"
                 onMouseEnter={() => setHoveredElement('profile-image')}
                 onMouseLeave={() => setHoveredElement(null)}
                 whileHover={{ scale: 1.05, rotateY: 8 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
-                <div className="w-full h-full rounded-full overflow-hidden border-4 border-white/60 dark:border-slate-700/60 shadow-2xl backdrop-blur-xl">
+                <div className="w-full h-full rounded-full overflow-hidden border-2 sm:border-4 border-white/60 dark:border-slate-700/60 shadow-2xl backdrop-blur-xl">
                   <img 
                     src="/director_photo.jpg" 
                     alt="Dheeraj Sonkar" 
@@ -378,7 +380,7 @@ const Hero: React.FC = () => {
                 ].map(({ Icon, color }, i) => (
                   <motion.div
                     key={i}
-                    className={`absolute w-12 h-12 bg-gradient-to-br ${color} rounded-full flex items-center justify-center shadow-lg border-2 border-white/80 dark:border-slate-700/80 backdrop-blur-sm`}
+                    className={`absolute w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${color} rounded-full flex items-center justify-center shadow-lg border-2 border-white/80 dark:border-slate-700/80 backdrop-blur-sm`}
                     animate={{
                       rotate: [0, 360],
                       y: [-5, 5, -5],
@@ -392,7 +394,7 @@ const Hero: React.FC = () => {
                       left: i % 2 === 0 ? '-8%' : '108%',
                     }}
                   >
-                    <Icon className="text-white" size={20} />
+                    <Icon className="text-white" size={16} />
                   </motion.div>
                 ))}
               </motion.div>

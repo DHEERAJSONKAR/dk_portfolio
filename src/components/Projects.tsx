@@ -24,7 +24,7 @@ const Projects: React.FC = () => {
     <section 
       ref={sectionRef}
       id="projects" 
-      className="relative py-24 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900 overflow-hidden"
+      className="relative py-16 sm:py-24 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-dark-900 dark:via-dark-800 dark:to-dark-900 overflow-hidden"
     >
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
@@ -65,7 +65,7 @@ const Projects: React.FC = () => {
       <div className="container relative mx-auto px-4 md:px-6">
         {/* Enhanced Header */}
         <motion.div 
-          className="text-center mb-20"
+          className="text-center mb-16 md:mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -216,7 +216,7 @@ const Projects: React.FC = () => {
         
         {/* Enhanced Projects Grid */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           layout
           transition={{ duration: 0.5 }}
         >

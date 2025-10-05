@@ -20,7 +20,7 @@ const About: React.FC = () => {
     <section 
       ref={sectionRef}
       id="about" 
-      className="relative py-24 bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/30 dark:from-dark-900 dark:via-slate-800 dark:to-indigo-900/20 overflow-hidden"
+      className="relative py-16 sm:py-24 bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/30 dark:from-dark-900 dark:via-slate-800 dark:to-indigo-900/20 overflow-hidden"
     >
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
@@ -156,10 +156,10 @@ const About: React.FC = () => {
           </motion.div>
         </motion.div>
         
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
           {/* Enhanced Image Section */}
           <motion.div 
-            className="w-full max-w-md lg:w-5/12"
+            className="w-full max-w-sm sm:max-w-md lg:w-5/12 px-4 sm:px-0"
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
