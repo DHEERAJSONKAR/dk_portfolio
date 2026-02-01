@@ -56,19 +56,9 @@ const Navbar: React.FC = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
       >
-        {/* Morphing background effect */}
+        {/* Static subtle background gradient */}
         {scrolled && (
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 via-cyan-500/5 to-purple-500/5"
-            animate={{
-              background: [
-                "linear-gradient(90deg, rgba(16, 185, 129, 0.05), rgba(6, 182, 212, 0.05), rgba(168, 85, 247, 0.05))",
-                "linear-gradient(180deg, rgba(6, 182, 212, 0.05), rgba(168, 85, 247, 0.05), rgba(16, 185, 129, 0.05))",
-                "linear-gradient(270deg, rgba(168, 85, 247, 0.05), rgba(16, 185, 129, 0.05), rgba(6, 182, 212, 0.05))",
-              ]
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          />
+          <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/3 via-cyan-500/3 to-purple-500/3" />
         )}
 
         <div className="container mx-auto px-4 md:px-6 flex justify-between items-center relative">
@@ -86,39 +76,16 @@ const Navbar: React.FC = () => {
               className="text-lg sm:text-xl md:text-2xl font-bold cursor-pointer relative group"
             >
               <motion.div className="flex items-center">
-                {/* Animated logo icon */}
-                <motion.div
-                  className="w-8 h-8 mr-2 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center shadow-lg"
-                  animate={{
-                    rotate: hoveredLink === 'logo' ? 360 : 0,
-                    scale: hoveredLink === 'logo' ? 1.1 : 1,
-                  }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <motion.div
-                    animate={{ 
-                      rotate: hoveredLink === 'logo' ? [0, 180, 360] : 0 
-                    }}
-                    transition={{ duration: 1 }}
-                  >
-                    <Sparkles className="text-white" size={16} />
-                  </motion.div>
-                </motion.div>
+                {/* Simplified logo icon */}
+                <div className="w-8 h-8 mr-2 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center shadow-lg">
+                  <Sparkles className="text-white" size={16} />
+                </div>
                 
                 <div>
                   <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-cyan-600 dark:from-emerald-400 dark:to-cyan-400">
                     {personalInfo.name.split(' ')[0]}
                   </span>
-                  <motion.span 
-                    className="text-purple-500"
-                    animate={{ 
-                      scale: [1, 1.2, 1],
-                      opacity: [1, 0.7, 1] 
-                    }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    .
-                  </motion.span>
+                  <span className="text-purple-500">.</span>
                 </div>
               </motion.div>
               
@@ -152,7 +119,7 @@ const Navbar: React.FC = () => {
                     to={link.id}
                     smooth={true}
                     spy={true}
-                    duration={100}
+                    duration={300}
                     offset={-70}
                     className={`cursor-pointer px-4 py-2 text-sm font-semibold rounded-xl transition-colors duration-100 relative overflow-hidden select-none ${
                       active === link.id

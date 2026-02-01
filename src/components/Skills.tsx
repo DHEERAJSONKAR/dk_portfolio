@@ -1,20 +1,16 @@
 import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
 import { skills } from '../data';
-import { Code, Zap, Star, Trophy, Target, Brain, Rocket } from 'lucide-react';
+import { Code, Brain, Rocket, Trophy, Target } from 'lucide-react';
 
 const Skills: React.FC = () => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: _scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   });
-
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
 
   return (
     <section 
@@ -25,38 +21,33 @@ const Skills: React.FC = () => {
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
-      {/* Simplified Tech Icons */}
-      {[...Array(6)].map((_, i) => (
+      {/* Minimal tech icons */}
+      {[...Array(3)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute text-indigo-200/15 dark:text-indigo-800/15 text-xl"
+          className="absolute text-indigo-200/10 dark:text-indigo-800/10 text-xl"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: `${25 + i * 25}%`,
+            top: `${30 + i * 20}%`,
           }}
           animate={{
             y: [-10, 10, -10],
-            opacity: [0.2, 0.4, 0.2],
+            opacity: [0.1, 0.3, 0.1],
           }}
           transition={{
-            duration: 5,
+            duration: 7,
             repeat: Infinity,
-            delay: i * 1,
+            delay: i * 1.5,
+            ease: "linear"
           }}
         >
-          {['⚛️', '🔥', '⚡', '🚀', '💎', '🎯'][i]}
+          {['⚛️', '🚀', '⚡'][i]}
         </motion.div>
       ))}
 
-      {/* Parallax Background Shapes */}
-      <motion.div 
-        style={{ y: y1, rotate }}
-        className="absolute top-20 right-20 w-80 h-80 bg-gradient-to-br from-indigo-200/20 to-purple-300/20 rounded-full blur-3xl"
-      />
-      <motion.div 
-        style={{ y: y2 }}
-        className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-purple-200/20 to-pink-300/20 rounded-full blur-3xl"
-      />
+      {/* Static background shapes */}
+      <div className="absolute top-20 right-20 w-80 h-80 bg-gradient-to-br from-indigo-200/15 to-purple-300/15 rounded-full blur-2xl" />
+      <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-purple-200/15 to-pink-300/15 rounded-full blur-2xl" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         {/* Enhanced Header */}
@@ -86,8 +77,8 @@ const Skills: React.FC = () => {
             >
               <Brain className="text-white" size={28} />
               
-              {/* Orbiting Skill Icons */}
-              {[Code, Zap, Star, Rocket].map((Icon, i) => (
+              {/* Simplified orbiting icons */}
+              {[Code, Rocket].map((Icon, i) => (
                 <motion.div
                   key={i}
                   className="absolute w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center"
@@ -95,14 +86,14 @@ const Skills: React.FC = () => {
                     rotate: [0, 360],
                   }}
                   transition={{
-                    duration: 8 + i * 2,
+                    duration: 10,
                     repeat: Infinity,
                     ease: "linear",
                   }}
                   style={{
                     top: "50%",
                     left: "50%",
-                    transformOrigin: `${45 + i * 8}px 0`,
+                    transformOrigin: `${50}px 0`,
                   }}
                 >
                   <Icon className="text-white" size={14} />
@@ -111,7 +102,6 @@ const Skills: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* Animated Title with Gradient Flow */}
           <motion.h2 
             className="text-4xl md:text-5xl font-bold mb-6 relative"
             initial={{ opacity: 0, y: 20 }}
@@ -119,22 +109,9 @@ const Skills: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <motion.span
-              className="bg-gradient-to-r from-gray-900 via-indigo-600 to-purple-600 bg-clip-text text-transparent dark:from-white dark:via-indigo-400 dark:to-purple-400"
-              animate={{
-                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "linear",
-              }}
-              style={{
-                backgroundSize: "200% 100%",
-              }}
-            >
+            <span className="bg-gradient-to-r from-gray-900 via-indigo-600 to-purple-600 bg-clip-text text-transparent dark:from-white dark:via-indigo-400 dark:to-purple-400">
               Technical Skills
-            </motion.span>
+            </span>
           </motion.h2>
 
           {/* Enhanced Decorative Elements */}
@@ -437,4 +414,4 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, index, isHovered, onHover 
   );
 };
 
-export default Skills;
+export default React.memo(Skills);

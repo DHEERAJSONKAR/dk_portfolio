@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { certifications } from '../data/index';
 import { Award, Calendar, ExternalLink, Shield, CheckCircle, Building, Sparkles, Star } from 'lucide-react';
 
@@ -10,10 +10,6 @@ const Certifications: React.FC = () => {
     offset: ["start end", "end start"]
   });
 
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
-
   return (
     <section 
       ref={sectionRef}
@@ -23,51 +19,32 @@ const Certifications: React.FC = () => {
       {/* Enhanced Background Decorations */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
-      {/* Floating Particles */}
-      {[...Array(15)].map((_, i) => (
+      {/* Minimal floating particles */}
+      {[...Array(3)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-2 h-2 bg-primary-400/30 rounded-full"
+          className="absolute w-2 h-2 bg-primary-400/20 rounded-full"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: `${25 + i * 25}%`,
+            top: `${25 + i * 25}%`,
           }}
           animate={{
-            y: [-20, 20, -20],
-            x: [-10, 10, -10],
-            opacity: [0.3, 0.8, 0.3],
+            y: [-15, 15, -15],
+            opacity: [0.2, 0.5, 0.2],
           }}
           transition={{
-            duration: 3 + Math.random() * 2,
+            duration: 6,
             repeat: Infinity,
-            delay: Math.random() * 2,
+            delay: i * 0.8,
+            ease: "linear"
           }}
         />
       ))}
 
-      {/* Parallax Background Elements */}
-      <motion.div 
-        style={{ y: y1, rotate }}
-        className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-br from-primary-200/20 to-purple-300/20 rounded-full blur-3xl"
-      />
-      <motion.div 
-        style={{ y: y2 }}
-        className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-purple-200/20 to-blue-300/20 rounded-full blur-3xl"
-      />
+      {/* Static background elements */}
+      <div className="absolute top-20 right-20 w-72 h-72 bg-gradient-to-br from-primary-200/15 to-purple-300/15 rounded-full blur-2xl" />
+      <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-purple-200/15 to-blue-300/15 rounded-full blur-2xl" />
       
-      {/* Animated Lines */}
-      <motion.div
-        className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary-500/20 to-transparent"
-        animate={{
-          opacity: [0, 1, 0],
-          scaleX: [0, 1, 0],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          delay: 1,
-        }}
-      />
       
       <div className="container relative mx-auto px-4 md:px-6">
         <motion.div 
@@ -97,8 +74,8 @@ const Certifications: React.FC = () => {
             >
               <Award className="text-white" size={28} />
               
-              {/* Orbiting Elements - Scaled for mobile */}
-              {[...Array(4)].map((_, i) => (
+              {/* Simplified orbiting elements */}
+              {[...Array(2)].map((_, i) => (
                 <motion.div
                   key={i}
                   className="absolute w-2 h-2 md:w-3 md:h-3 rounded-full"
@@ -108,13 +85,13 @@ const Certifications: React.FC = () => {
                       : "linear-gradient(45deg, #10b981, #059669)",
                     top: "50%",
                     left: "50%",
-                    transformOrigin: `${25 + i * 4}px 0`,
+                    transformOrigin: `${30}px 0`,
                   }}
                   animate={{
                     rotate: [0, 360],
                   }}
                   transition={{
-                    duration: 6 + i * 2,
+                    duration: 8,
                     repeat: Infinity,
                     ease: "linear",
                   }}
@@ -137,7 +114,7 @@ const Certifications: React.FC = () => {
             
             {/* Side Decorative Elements - Hidden on small screens, repositioned for tablets */}
             <motion.div 
-              className="hidden sm:block absolute -left-8 md:-left-16 top-1/2 transform -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center shadow-lg"
+              className="hidden sm:flex absolute -left-8 md:-left-16 top-1/2 transform -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 items-center justify-center shadow-lg"
               animate={{
                 y: [-3, 3, -3],
                 rotate: [0, 180, 360],
@@ -152,7 +129,7 @@ const Certifications: React.FC = () => {
             </motion.div>
             
             <motion.div 
-              className="hidden sm:block absolute -right-8 md:-right-16 top-1/2 transform -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center shadow-lg"
+              className="hidden sm:flex absolute -right-8 md:-right-16 top-1/2 transform -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-gradient-to-br from-pink-500 to-purple-600 items-center justify-center shadow-lg"
               animate={{
                 y: [3, -3, 3],
                 rotate: [360, 180, 0],
@@ -678,4 +655,4 @@ const CertificationCard: React.FC<CertificationCardProps> = ({ certification, in
   );
 };
 
-export default Certifications;
+export default React.memo(Certifications);

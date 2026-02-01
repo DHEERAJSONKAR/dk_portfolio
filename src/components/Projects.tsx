@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll } from 'framer-motion';
 import { projects } from '../data';
 import { Github, Code, Star, Sparkles, Play, Eye } from 'lucide-react';
 
@@ -7,14 +7,10 @@ const Projects: React.FC = () => {
   const [filter, setFilter] = useState<'all' | 'featured'>('all');
   const sectionRef = useRef<HTMLElement>(null);
   
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: _scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   });
-
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   
   const filteredProjects = filter === 'all' 
     ? projects 
@@ -29,38 +25,33 @@ const Projects: React.FC = () => {
       {/* Enhanced Background Elements */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
       
-      {/* Simplified Code Elements */}
-      {[...Array(4)].map((_, i) => (
+      {/* Minimal code elements */}
+      {[...Array(2)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute text-primary-200/15 dark:text-primary-800/15 text-2xl font-mono"
+          className="absolute text-primary-200/10 dark:text-primary-800/10 text-2xl font-mono"
           style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
+            left: `${30 + i * 40}%`,
+            top: `${30 + i * 40}%`,
           }}
           animate={{
             y: [-10, 10, -10],
-            opacity: [0.1, 0.2, 0.1],
+            opacity: [0.05, 0.15, 0.05],
           }}
           transition={{
-            duration: 6,
+            duration: 8,
             repeat: Infinity,
-            delay: i * 1.5,
+            delay: i * 2,
+            ease: "linear"
           }}
         >
-          {['</', '/>', '{}', '[]'][i]}
+          {['</>',  '{}'][i]}
         </motion.div>
       ))}
 
-      {/* Parallax Background Shapes */}
-      <motion.div 
-        style={{ y: y1, opacity }}
-        className="absolute top-20 right-20 w-80 h-80 bg-gradient-to-br from-blue-200/20 to-purple-300/20 rounded-full blur-3xl"
-      />
-      <motion.div 
-        style={{ y: y2, opacity }}
-        className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-green-200/20 to-blue-300/20 rounded-full blur-3xl"
-      />
+      {/* Static background shapes */}
+      <div className="absolute top-20 right-20 w-80 h-80 bg-gradient-to-br from-blue-200/15 to-purple-300/15 rounded-full blur-2xl" />
+      <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-to-br from-green-200/15 to-blue-300/15 rounded-full blur-2xl" />
 
       <div className="container relative mx-auto px-4 md:px-6">
         {/* Enhanced Header */}
@@ -83,8 +74,8 @@ const Projects: React.FC = () => {
           >
             <Code className="text-white" size={36} />
             
-            {/* Orbiting Sparkles */}
-            {[...Array(6)].map((_, i) => (
+            {/* Simplified orbiting sparkles */}
+            {[...Array(3)].map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-2 h-2 bg-yellow-400 rounded-full"
@@ -92,14 +83,14 @@ const Projects: React.FC = () => {
                   rotate: [0, 360],
                 }}
                 transition={{
-                  duration: 3 + i,
+                  duration: 5 + i * 2,
                   repeat: Infinity,
                   ease: "linear",
                 }}
                 style={{
                   top: "50%",
                   left: "50%",
-                  transformOrigin: `${30 + i * 5}px 0`,
+                  transformOrigin: `${35}px 0`,
                 }}
               />
             ))}
@@ -436,4 +427,4 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
   );
 };
 
-export default Projects;
+export default React.memo(Projects);

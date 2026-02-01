@@ -30,74 +30,55 @@ const Hero: React.FC = () => {
     <section 
       ref={sectionRef}
       id="home" 
-      className="relative min-h-screen flex items-center py-4 sm:py-8 md:py-16 bg-gradient-to-br from-slate-50 via-emerald-50/30 to-cyan-50/30 dark:from-dark-900 dark:via-slate-800 dark:to-emerald-900/20 overflow-hidden"
+      className="relative min-h-screen flex items-center py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-slate-50 via-emerald-50/30 to-cyan-50/30 dark:from-dark-900 dark:via-slate-800 dark:to-emerald-900/20 overflow-hidden"
     >
       {/* Enhanced Background with Better Colors */}
       <div className="absolute inset-0">
-        {/* Improved animated mesh gradient */}
-        <motion.div
-          className="absolute inset-0 opacity-40"
-          animate={{
-            background: [
-              "radial-gradient(circle at 25% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 50%), radial-gradient(circle at 75% 25%, rgba(6, 182, 212, 0.15) 0%, transparent 50%)",
-              "radial-gradient(circle at 50% 25%, rgba(16, 185, 129, 0.15) 0%, transparent 50%), radial-gradient(circle at 50% 75%, rgba(168, 85, 247, 0.15) 0%, transparent 50%)",
-              "radial-gradient(circle at 75% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 50%), radial-gradient(circle at 25% 75%, rgba(16, 185, 129, 0.15) 0%, transparent 50%)",
-            ]
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
+        {/* Static mesh gradient for better performance */}
+        <div className="absolute inset-0 opacity-30 bg-gradient-to-br from-emerald-100/20 via-cyan-100/20 to-purple-100/20 dark:from-emerald-900/10 dark:via-cyan-900/10 dark:to-purple-900/10" />
 
-        {/* Reduced floating particles for performance */}
-        {[...Array(4)].map((_, i) => (
+        {/* Minimal floating particles for performance */}
+        {[...Array(2)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-2 h-2 bg-emerald-400/20 rounded-full"
             style={{
-              left: `${20 + i * 20}%`,
-              top: `${20 + i * 15}%`,
+              left: `${30 + i * 40}%`,
+              top: `${30 + i * 30}%`,
             }}
             animate={{
               y: [-10, 10, -10],
               opacity: [0.2, 0.4, 0.2],
             }}
             transition={{
-              duration: 6,
+              duration: 8,
               repeat: Infinity,
-              delay: i * 0.5,
+              delay: i * 1,
+              ease: "linear"
             }}
           />
         ))}
 
-        {/* Parallax background shapes with new colors */}
-        <motion.div 
-          style={{ y: y1 }}
-          className="absolute -top-16 -right-16 w-80 h-80 rounded-full bg-gradient-to-br from-emerald-200/30 to-cyan-300/30 blur-3xl"
-        />
-        <motion.div 
-          style={{ y: y2 }}
-          className="absolute top-1/2 -left-24 w-96 h-96 rounded-full bg-gradient-to-br from-cyan-200/30 to-purple-300/30 blur-3xl"
-        />
+        {/* Simplified background shapes */}
+        <div className="absolute -top-16 -right-16 w-80 h-80 rounded-full bg-gradient-to-br from-emerald-200/20 to-cyan-300/20 blur-2xl" />
+        <div className="absolute top-1/2 -left-24 w-96 h-96 rounded-full bg-gradient-to-br from-cyan-200/20 to-purple-300/20 blur-2xl" />
       </div>
       
       <motion.div 
         className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 relative z-10 w-full"
         style={{ opacity }}
       >
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-6 sm:gap-8 lg:gap-12 min-h-screen lg:min-h-0">
+        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 sm:gap-10 md:gap-12 lg:gap-12 py-8 sm:py-12 lg:py-0">
           {/* Enhanced Content Section */}
           <motion.div 
-            className="w-full lg:w-3/5 text-center lg:text-left order-2 lg:order-1"
+            className="w-full lg:w-3/5 text-center lg:text-left order-2 lg:order-1 space-y-4 sm:space-y-6"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             {/* Enhanced greeting badge with new colors */}
             <motion.div
-              className="inline-flex items-center bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl px-4 sm:px-6 py-2 sm:py-3 rounded-full border border-emerald-200/60 dark:border-slate-700/60 shadow-lg mb-4 sm:mb-6 text-sm sm:text-base"
+              className="inline-flex items-center bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl px-4 sm:px-6 py-2 sm:py-3 rounded-full border border-emerald-200/60 dark:border-slate-700/60 shadow-lg mb-3 sm:mb-4 text-sm sm:text-base"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
@@ -124,7 +105,7 @@ const Hero: React.FC = () => {
             
             {/* Enhanced Name with new gradient */}
             <motion.h1 
-              className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight"
+              className="text-3xl xs:text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-3 sm:mb-4 leading-tight"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
@@ -160,7 +141,7 @@ const Hero: React.FC = () => {
             
             {/* Enhanced role section with new gradient */}
             <motion.div
-              className="h-12 xs:h-14 sm:h-16 md:h-20 mb-6 sm:mb-8 flex items-center justify-center lg:justify-start"
+              className="h-10 sm:h-12 md:h-16 mb-4 sm:mb-6 flex items-center justify-center lg:justify-start"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
@@ -184,7 +165,7 @@ const Hero: React.FC = () => {
             
             {/* Enhanced bio with reveal animation */}
             <motion.p 
-              className="text-sm xs:text-base sm:text-lg md:text-xl text-slate-700 dark:text-slate-300 mb-8 sm:mb-10 max-w-2xl leading-relaxed px-4 sm:px-0"
+              className="text-sm sm:text-base md:text-lg text-slate-700 dark:text-slate-300 mb-6 sm:mb-8 max-w-2xl leading-relaxed px-2 sm:px-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8 }}
@@ -194,7 +175,7 @@ const Hero: React.FC = () => {
             
             {/* Enhanced action buttons with new colors */}
             <motion.div 
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8 px-4 sm:px-0"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-6 px-2 sm:px-0"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1 }}
@@ -311,7 +292,7 @@ const Hero: React.FC = () => {
           
           {/* Enhanced Image Section with new colors */}
           <motion.div 
-            className="w-full lg:w-2/5 flex justify-center order-1 lg:order-2 mt-4 sm:mt-8 lg:mt-0"
+            className="w-full lg:w-2/5 flex justify-center order-1 lg:order-2"
             initial={{ opacity: 0, scale: 0.8, rotateY: -30 }}
             animate={{ opacity: 1, scale: 1, rotateY: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -346,7 +327,7 @@ const Hero: React.FC = () => {
 
               {/* Main image container with enhanced effects */}
               <motion.div 
-                className="relative w-48 h-48 xs:w-56 xs:h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96"
+                className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96"
                 onMouseEnter={() => setHoveredElement('profile-image')}
                 onMouseLeave={() => setHoveredElement(null)}
                 whileHover={{ scale: 1.05, rotateY: 8 }}
@@ -357,6 +338,8 @@ const Hero: React.FC = () => {
                     src="/director_photo.jpg" 
                     alt="Dheeraj Sonkar" 
                     className="w-full h-full object-cover"
+                    loading="eager"
+                    decoding="async"
                   />
                   
                   {/* Enhanced image overlay with new colors */}
@@ -373,21 +356,19 @@ const Hero: React.FC = () => {
                   />
                 </div>
 
-                {/* Simplified floating skill icons - reduced for performance */}
+                {/* Minimal floating icons for performance */}
                 {[
                   { Icon: Code, color: 'from-emerald-500 to-emerald-700' },
                   { Icon: Star, color: 'from-cyan-500 to-cyan-700' }
                 ].map(({ Icon, color }, i) => (
                   <motion.div
                     key={i}
-                    className={`absolute w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${color} rounded-full flex items-center justify-center shadow-lg border-2 border-white/80 dark:border-slate-700/80 backdrop-blur-sm`}
+                    className={`absolute w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${color} rounded-full flex items-center justify-center shadow-lg border-2 border-white/80 dark:border-slate-700/80`}
                     animate={{
-                      rotate: [0, 360],
                       y: [-5, 5, -5],
                     }}
                     transition={{
-                      rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                      y: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 },
+                      y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 },
                     }}
                     style={{
                       top: `${20 + i * 40}%`,
