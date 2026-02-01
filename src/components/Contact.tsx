@@ -70,11 +70,8 @@ const Contact: React.FC = () => {
   return (
     <section 
       id="contact" 
-      className="py-16 sm:py-20 bg-white dark:bg-dark-900 relative overflow-hidden"
+      className="py-16 sm:py-20 bg-gray-50 dark:bg-dark-900"
     >
-      {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary-50/50 dark:bg-primary-900/10 rounded-full blur-3xl opacity-70 -z-10"></div>
-      <div className="absolute bottom-0 left-0 w-64 h-64 bg-secondary-50/50 dark:bg-secondary-900/10 rounded-full blur-3xl opacity-70 -z-10"></div>
       
       <div className="container mx-auto px-4 md:px-6">
         <motion.div 

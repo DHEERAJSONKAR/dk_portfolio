@@ -1,338 +1,106 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import React from 'react';
 import { Link } from 'react-scroll';
 import { Github, Linkedin, Code, Sparkles, Zap, Rocket, Star, Download } from 'lucide-react';
 import { personalInfo } from '../data';
 
 const Hero: React.FC = () => {
-  const [isTyping, setIsTyping] = useState(true);
-  const [hoveredElement, setHoveredElement] = useState<string | null>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"]
-  });
-
-  // Reduced parallax effect for better performance
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -30]);
-  // Keep content visible longer during scroll
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0.3]);
-
-  // Simplified typing animation effect
-  useEffect(() => {
-    const timer = setTimeout(() => setIsTyping(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <section 
-      ref={sectionRef}
       id="home" 
-      className="relative min-h-screen flex items-center py-8 sm:py-12 md:py-16 lg:py-20 bg-gradient-to-br from-slate-50 via-emerald-50/30 to-cyan-50/30 dark:from-dark-900 dark:via-slate-800 dark:to-emerald-900/20 overflow-hidden"
+      className="relative min-h-screen flex items-center pt-20 pb-8 sm:pt-24 sm:pb-12 md:pt-28 md:pb-16 lg:pt-32 lg:pb-20 bg-white dark:bg-dark-900"
     >
-      {/* Enhanced Background with Better Colors */}
-      <div className="absolute inset-0">
-        {/* Static mesh gradient for better performance */}
-        <div className="absolute inset-0 opacity-30 bg-gradient-to-br from-emerald-100/20 via-cyan-100/20 to-purple-100/20 dark:from-emerald-900/10 dark:via-cyan-900/10 dark:to-purple-900/10" />
-
-        {/* Minimal floating particles for performance */}
-        {[...Array(2)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-emerald-400/20 rounded-full"
-            style={{
-              left: `${30 + i * 40}%`,
-              top: `${30 + i * 30}%`,
-            }}
-            animate={{
-              y: [-10, 10, -10],
-              opacity: [0.2, 0.4, 0.2],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-              delay: i * 1,
-              ease: "linear"
-            }}
-          />
-        ))}
-
-        {/* Simplified background shapes */}
-        <div className="absolute -top-16 -right-16 w-80 h-80 rounded-full bg-gradient-to-br from-emerald-200/20 to-cyan-300/20 blur-2xl" />
-        <div className="absolute top-1/2 -left-24 w-96 h-96 rounded-full bg-gradient-to-br from-cyan-200/20 to-purple-300/20 blur-2xl" />
-      </div>
       
-      <motion.div 
-        className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 relative z-10 w-full"
-        style={{ opacity }}
-      >
-        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-8 sm:gap-10 md:gap-12 lg:gap-12 py-8 sm:py-12 lg:py-0">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 relative z-10 w-full">
+        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-6 sm:gap-8 md:gap-10 lg:gap-12">
           {/* Enhanced Content Section */}
-          <motion.div 
-            className="w-full lg:w-3/5 text-center lg:text-left order-2 lg:order-1 space-y-4 sm:space-y-6"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
+          <div className="w-full lg:w-3/5 text-center lg:text-left order-2 lg:order-1 space-y-4 sm:space-y-6">
             {/* Enhanced greeting badge with new colors */}
-            <motion.div
-              className="inline-flex items-center bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl px-4 sm:px-6 py-2 sm:py-3 rounded-full border border-emerald-200/60 dark:border-slate-700/60 shadow-lg mb-3 sm:mb-4 text-sm sm:text-base"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-              onMouseEnter={() => setHoveredElement('greeting')}
-              onMouseLeave={() => setHoveredElement(null)}
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 10px 30px rgba(16, 185, 129, 0.3)"
-              }}
-            >
-              <motion.div
-                animate={{ 
-                  rotate: hoveredElement === 'greeting' ? [0, 20, -20, 0] : [0, 10, 0],
-                  scale: hoveredElement === 'greeting' ? 1.2 : 1
-                }}
-                transition={{ duration: 0.5 }}
-              >
-                <Sparkles className="text-emerald-600 dark:text-emerald-400 mr-2" size={20} />
-              </motion.div>
+            <div className="inline-flex items-center bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl px-4 sm:px-6 py-2 sm:py-3 rounded-full border border-emerald-200/60 dark:border-slate-700/60 shadow-lg mb-3 sm:mb-4 text-sm sm:text-base">
+              <Sparkles className="text-emerald-600 dark:text-emerald-400 mr-2" size={20} />
               <span className="text-emerald-700 dark:text-emerald-300 font-semibold">
                 Hello, I'm
               </span>
-            </motion.div>
+            </div>
             
             {/* Enhanced Name with new gradient */}
-            <motion.h1 
-              className="text-3xl xs:text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-3 sm:mb-4 leading-tight"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              onMouseEnter={() => setHoveredElement('name')}
-              onMouseLeave={() => setHoveredElement(null)}
-            >
-              <motion.span
-                className="bg-gradient-to-r from-slate-800 via-emerald-600 to-cyan-700 bg-clip-text text-transparent dark:from-white dark:via-emerald-400 dark:to-cyan-400"
-                animate={{
-                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  scale: hoveredElement === 'name' ? 1.02 : 1,
-                }}
-                transition={{
-                  backgroundPosition: { duration: 6, repeat: Infinity, ease: "linear" },
-                  scale: { duration: 0.3 }
-                }}
-                style={{
-                  backgroundSize: "200% 100%",
-                }}
-              >
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-3 sm:mb-4 leading-tight">
+              <span className="bg-gradient-to-r from-slate-800 via-emerald-600 to-cyan-700 bg-clip-text text-transparent dark:from-white dark:via-emerald-400 dark:to-cyan-400">
                 {personalInfo.name}
-              </motion.span>
-              {isTyping && (
-                <motion.span
-                  className="text-emerald-600 dark:text-emerald-400"
-                  animate={{ opacity: [0, 1, 0] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                >
-                  |
-                </motion.span>
-              )}
-            </motion.h1>
+              </span>
+            </h1>
             
             {/* Enhanced role section with new gradient */}
-            <motion.div
-              className="h-10 sm:h-12 md:h-16 mb-4 sm:mb-6 flex items-center justify-center lg:justify-start"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-            >
-              <AnimatePresence mode="wait">
-                <motion.h2
-                  key={personalInfo.title}
-                  className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-emerald-600 via-cyan-600 to-purple-600 bg-clip-text text-transparent dark:from-emerald-400 dark:via-cyan-400 dark:to-purple-400"
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -20, opacity: 0 }}
-                  transition={{ duration: 0.5 }}
-                  onMouseEnter={() => setHoveredElement('title')}
-                  onMouseLeave={() => setHoveredElement(null)}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  {personalInfo.title}
-                </motion.h2>
-              </AnimatePresence>
-            </motion.div>
+            <div className="h-10 sm:h-12 md:h-14 lg:h-16 mb-4 sm:mb-5 flex items-center justify-center lg:justify-start">
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-emerald-600 via-cyan-600 to-purple-600 bg-clip-text text-transparent dark:from-emerald-400 dark:via-cyan-400 dark:to-purple-400">
+                {personalInfo.title}
+              </h2>
+            </div>
             
             {/* Enhanced bio with reveal animation */}
-            <motion.p 
-              className="text-sm sm:text-base md:text-lg text-slate-700 dark:text-slate-300 mb-6 sm:mb-8 max-w-2xl leading-relaxed px-2 sm:px-0"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-            >
+            <p className="text-sm sm:text-base md:text-lg text-slate-700 dark:text-slate-300 mb-5 sm:mb-6 max-w-2xl leading-relaxed px-2 sm:px-0">
               {personalInfo.bio}
-            </motion.p>
+            </p>
             
             {/* Enhanced action buttons with new colors */}
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-6 px-2 sm:px-0"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
-            >
-              <motion.div
-                onMouseEnter={() => setHoveredElement('projects-btn')}
-                onMouseLeave={() => setHoveredElement(null)}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto"
-              >
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-5 sm:mb-6 px-2 sm:px-0">
+              <div className="w-full sm:w-auto">
                 <Link
                   to="projects"
                   smooth={true}
-                  duration={500}
+                  duration={0}
                   offset={-70}
-                  className="relative inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-emerald-600 via-cyan-600 to-emerald-600 text-white font-bold rounded-2xl shadow-lg overflow-hidden group cursor-pointer text-sm sm:text-base"
+                  className="inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-emerald-600 via-cyan-600 to-emerald-600 text-white font-bold rounded-2xl shadow-lg cursor-pointer text-sm sm:text-base hover:shadow-xl transition-shadow"
                 >
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-cyan-600 via-purple-600 to-cyan-600"
-                    animate={{
-                      x: hoveredElement === 'projects-btn' ? ["-100%", "100%"] : ["-150%", "150%"],
-                      opacity: [0, 0.6, 0],
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
-                  <motion.div
-                    animate={{ rotate: hoveredElement === 'projects-btn' ? 360 : 0 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <Rocket className="mr-2 relative z-10" size={18} />
-                  </motion.div>
-                  <span className="relative z-10">View Projects</span>
+                  <Rocket className="mr-2" size={18} />
+                  <span>View Projects</span>
                 </Link>
-              </motion.div>
+              </div>
               
-              <motion.div
-                onMouseEnter={() => setHoveredElement('contact-btn')}
-                onMouseLeave={() => setHoveredElement(null)}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full sm:w-auto"
-              >
+              <div className="w-full sm:w-auto">
                 <Link
                   to="contact"
                   smooth={true}
-                  duration={500}
+                  duration={0}
                   offset={-70}
-                  className="relative inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl text-slate-800 dark:text-white font-bold rounded-2xl border border-emerald-200/60 dark:border-slate-700/60 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer group overflow-hidden text-sm sm:text-base"
+                  className="inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl text-slate-800 dark:text-white font-bold rounded-2xl border border-emerald-200/60 dark:border-slate-700/60 shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer text-sm sm:text-base"
                 >
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-emerald-50 to-cyan-50 dark:from-slate-700 dark:to-slate-600 opacity-0 group-hover:opacity-100"
-                    transition={{ duration: 0.3 }}
-                  />
-                  <motion.div
-                    animate={{ 
-                      x: hoveredElement === 'contact-btn' ? [0, 3, 0] : 0,
-                      rotate: hoveredElement === 'contact-btn' ? [0, 15, 0] : 0
-                    }}
-                    transition={{ duration: 0.4 }}
-                  >
-                    <Zap className="mr-2 relative z-10" size={18} />
-                  </motion.div>
-                  <span className="relative z-10">Contact Me</span>
+                  <Zap className="mr-2" size={18} />
+                  <span>Contact Me</span>
                 </Link>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
 
             {/* Enhanced social links with new colors */}
-            <motion.div 
-              className="flex items-center justify-center lg:justify-start gap-3 sm:gap-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.2 }}
-            >
+            <div className="flex items-center justify-center lg:justify-start gap-3 sm:gap-4">
               {[
                 { href: personalInfo.github, icon: Github, name: 'github', color: 'from-slate-700 to-slate-900' },
                 { href: personalInfo.linkedin, icon: Linkedin, name: 'linkedin', color: 'from-cyan-600 to-cyan-800' },
                 { href: "/resume(dheeraj)1.pdf", icon: Download, name: 'resume', color: 'from-emerald-500 to-emerald-700', download: true }
               ].map((social) => (
-                <motion.a
+                <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
                   download={social.download}
-                  className="relative p-3 sm:p-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl rounded-xl border border-emerald-200/50 dark:border-slate-700/50 shadow-lg text-slate-700 dark:text-slate-300 transition-all duration-300 group overflow-hidden"
-                  onMouseEnter={() => setHoveredElement(social.name)}
-                  onMouseLeave={() => setHoveredElement(null)}
-                  whileHover={{ scale: 1.1, y: -3 }}
-                  whileTap={{ scale: 0.95 }}
+                  className="p-3 sm:p-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-xl rounded-xl border border-emerald-200/50 dark:border-slate-700/50 shadow-lg text-slate-700 dark:text-slate-300 hover:scale-110 hover:shadow-xl transition-all duration-300 group"
                 >
-                  <motion.div
-                    className={`absolute inset-0 bg-gradient-to-br ${social.color} opacity-0 group-hover:opacity-100`}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <motion.div
-                    animate={{
-                      rotate: hoveredElement === social.name ? 360 : 0,
-                      scale: hoveredElement === social.name ? 1.1 : 1,
-                    }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <social.icon className="relative z-10 group-hover:text-white transition-colors duration-300" size={20} />
-                  </motion.div>
-                </motion.a>
+                  <social.icon className="group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300" size={20} />
+                </a>
               ))}
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
           
           {/* Enhanced Image Section with new colors */}
-          <motion.div 
-            className="w-full lg:w-2/5 flex justify-center order-1 lg:order-2"
-            initial={{ opacity: 0, scale: 0.8, rotateY: -30 }}
-            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-          >
+          <div className="w-full lg:w-2/5 flex justify-center order-1 lg:order-2">
             <div className="relative">
               {/* Enhanced background layers with new colors */}
-              <motion.div 
-                className="absolute -inset-4 sm:-inset-6 md:-inset-8 bg-gradient-to-br from-emerald-400/25 via-cyan-500/25 to-purple-600/25 rounded-full blur-2xl"
-                animate={{
-                  scale: [1, 1.1, 1],
-                  rotate: [0, 180, 360],
-                }}
-                transition={{
-                  duration: 12,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              />
-              
-              <motion.div 
-                className="absolute -inset-2 sm:-inset-3 md:-inset-4 bg-gradient-to-br from-emerald-300/35 to-cyan-500/35 rounded-full blur-xl"
-                animate={{
-                  scale: [1.1, 1, 1.1],
-                  rotate: [360, 180, 0],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              />
+              <div className="absolute -inset-4 sm:-inset-6 md:-inset-8 bg-gradient-to-br from-emerald-400/25 via-cyan-500/25 to-purple-600/25 rounded-full blur-2xl" />
+              <div className="absolute -inset-2 sm:-inset-3 md:-inset-4 bg-gradient-to-br from-emerald-300/35 to-cyan-500/35 rounded-full blur-xl" />
 
               {/* Main image container with enhanced effects */}
-              <motion.div 
-                className="relative w-56 h-56 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96"
-                onMouseEnter={() => setHoveredElement('profile-image')}
-                onMouseLeave={() => setHoveredElement(null)}
-                whileHover={{ scale: 1.05, rotateY: 8 }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              >
+              <div className="relative w-52 h-52 sm:w-60 sm:h-60 md:w-72 md:h-72 lg:w-80 lg:h-80 xl:w-96 xl:h-96">
                 <div className="w-full h-full rounded-full overflow-hidden border-2 sm:border-4 border-white/60 dark:border-slate-700/60 shadow-2xl backdrop-blur-xl">
                   <img 
                     src="/director_photo.jpg" 
@@ -343,46 +111,30 @@ const Hero: React.FC = () => {
                   />
                   
                   {/* Enhanced image overlay with new colors */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-t from-emerald-600/30 via-transparent to-transparent"
-                    animate={{
-                      opacity: hoveredElement === 'profile-image' ? [0.3, 0.5, 0.3] : [0.1, 0.2, 0.1],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-emerald-600/20 via-transparent to-transparent" />
                 </div>
 
-                {/* Minimal floating icons for performance */}
+                {/* Minimal floating icons */}
                 {[
                   { Icon: Code, color: 'from-emerald-500 to-emerald-700' },
                   { Icon: Star, color: 'from-cyan-500 to-cyan-700' }
                 ].map(({ Icon, color }, i) => (
-                  <motion.div
+                  <div
                     key={i}
                     className={`absolute w-8 h-8 xs:w-10 xs:h-10 sm:w-12 sm:h-12 bg-gradient-to-br ${color} rounded-full flex items-center justify-center shadow-lg border-2 border-white/80 dark:border-slate-700/80`}
-                    animate={{
-                      y: [-5, 5, -5],
-                    }}
-                    transition={{
-                      y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 },
-                    }}
                     style={{
                       top: `${20 + i * 40}%`,
                       left: i % 2 === 0 ? '-8%' : '108%',
                     }}
                   >
                     <Icon className="text-white" size={16} />
-                  </motion.div>
+                  </div>
                 ))}
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

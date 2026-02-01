@@ -187,18 +187,18 @@
     /* Improve rendering performance */
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeSpeed;
+    overflow-x: hidden;
   }
   
   body {
     overflow-x: hidden;
+    position: relative;
   }
   
   /* Optimize rendering performance */
   * {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    transform: translateZ(0);
-    will-change: auto;
   }
   
   /* Reduce motion for users who prefer it */
