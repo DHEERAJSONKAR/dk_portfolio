@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-scroll';
-import { Menu, X, Sun, Moon, Github, Linkedin, Sparkles } from 'lucide-react';
+import { Menu, X, Sun, Moon, Github, Linkedin,} from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
 import { navLinks, personalInfo } from '../data';
 
@@ -8,7 +8,6 @@ const Navbar: React.FC = () => {
   const [active, setActive] = useState('home');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const { darkMode, toggleTheme } = useTheme();
   const navRef = useRef<HTMLElement>(null);
 
@@ -48,40 +47,17 @@ const Navbar: React.FC = () => {
         ref={navRef}
         className={`fixed top-0 left-0 right-0 w-full z-[100] ${
           scrolled 
-            ? 'bg-white dark:bg-dark-900 shadow-xl border-b border-gray-200 dark:border-slate-700 py-3' 
-            : 'bg-white dark:bg-dark-900 py-4'
+            ? 'py-5' 
+            : ' py-6'
         } transition-all duration-300`}
         style={{ position: 'fixed' }}
       >
 
-        <div className="container mx-auto px-4 md:px-6 flex justify-between items-center relative">
-          {/* Enhanced Logo */}
-          <div>
-            <Link
-              to="home"
-              smooth={true}
-              duration={0}
-              className="text-lg sm:text-xl md:text-2xl font-bold cursor-pointer relative group"
-            >
-              <div className="flex items-center">
-                {/* Simplified logo icon */}
-                <div className="w-8 h-8 mr-2 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center shadow-lg">
-                  <Sparkles className="text-white" size={16} />
-                </div>
-                
-                <div>
-                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-cyan-600 dark:from-emerald-400 dark:to-cyan-400">
-                    {personalInfo.name.split(' ')[0]}
-                  </span>
-                  <span className="text-purple-500">.</span>
-                </div>
-              </div>
-            </Link>
-          </div>
+        <div className="container mx-auto md:pt-8 md:px-6 flex justify-center items-center relative">
           
           {/* Enhanced Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <div className="flex space-x-1 bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl rounded-2xl p-1 border border-emerald-200/30 dark:border-slate-700/30">
+            <div className="flex space-x-1 bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl rounded-2xl p-2 border border-emerald-200/30 dark:border-slate-700/30">
               {navLinks.map((link) => (
                 <div key={link.id}>
                   <Link
@@ -90,7 +66,7 @@ const Navbar: React.FC = () => {
                     spy={true}
                     duration={0}
                     offset={-70}
-                    className={`cursor-pointer px-4 py-2 text-sm font-semibold rounded-xl transition-colors duration-200 relative select-none ${
+                    className={`cursor-pointer px-6 py-3 text-lg font-semibold rounded-xl transition-colors duration-200 relative select-none ${
                       active === link.id
                         ? 'text-white bg-gradient-to-r from-emerald-500 to-cyan-600'
                         : 'text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400'
@@ -104,58 +80,43 @@ const Navbar: React.FC = () => {
             </div>
             
             {/* Enhanced Action Buttons */}
-            <div className="flex items-center space-x-2">
-              {/* Social Links */}
-              <a 
-                href={personalInfo.github} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-2 rounded-xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl border border-emerald-200/30 dark:border-slate-700/30 text-gray-700 dark:text-gray-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:scale-105 transition-all duration-300 cursor-pointer"
-              >
-                <Github size={18} />
-              </a>
-
-              <a 
-                href={personalInfo.linkedin} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="p-2 rounded-xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl border border-emerald-200/30 dark:border-slate-700/30 text-gray-700 dark:text-gray-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:scale-105 transition-all duration-300"
-              >
-                <Linkedin size={18} />
-              </a>
 
               {/* Enhanced Theme Toggle */}
               <button 
                 onClick={toggleTheme}
-                className="p-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-600 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer"
+                className="p-3 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-600 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer"
                 aria-label="Toggle theme"
               >
-                {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+                {darkMode ? <Sun size={22} /> : <Moon size={22} />}
               </button>
             </div>
           </div>
           
-          {/* Enhanced Mobile Menu */}
-          <div className="flex items-center space-x-3 md:hidden">
-            {/* Mobile Theme Toggle */}
-            <button 
-              onClick={toggleTheme}
-              className="p-2 rounded-xl bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl border border-emerald-200/30 dark:border-slate-700/30 text-gray-700 dark:text-gray-300 hover:scale-110 transition-all"
-              aria-label="Toggle theme"
-            >
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+          {/* Capsule Mobile Menu */}
+          <div className="flex md:hidden justify-center w-full">
+            <div className="flex items-center bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl rounded-full px-10 py-2 border border-emerald-200/30 dark:border-slate-700/30 shadow-lg">
+              {/* Mobile Theme Toggle */}
+              <button 
+                onClick={toggleTheme}
+                className="p-2.5 rounded-full text-gray-700 dark:text-gray-300 hover:bg-emerald-100 dark:hover:bg-slate-700 transition-all"
+                aria-label="Toggle theme"
+              >
+                {darkMode ? <Sun size={24} /> : <Moon size={24} />}
+              </button>
 
-            {/* Enhanced Mobile Menu Button */}
-            <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-600 text-white shadow-lg hover:scale-110 transition-all"
-              aria-label="Toggle mobile menu"
-            >
-              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+              {/* Divider */}
+              <div className="w-px h-6 bg-emerald-200/50 dark:bg-slate-700/50 mx-5"></div>
+
+              {/* Enhanced Mobile Menu Button */}
+              <button 
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2.5 rounded-full text-gray-700 dark:text-gray-300 hover:bg-emerald-100 dark:hover:bg-slate-700 transition-all"
+                aria-label="Toggle mobile menu"
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
-        </div>
         
         {/* Enhanced Mobile Menu */}
         {mobileMenuOpen && (
@@ -170,7 +131,7 @@ const Navbar: React.FC = () => {
                   duration={0}
                   offset={-70}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`cursor-pointer py-3 px-4 text-sm font-semibold block rounded-xl transition-all duration-150 ${
+                  className={`cursor-pointer py-3 px-4 text-xl font-semibold block rounded-xl transition-all duration-150 ${
                     active === link.id
                       ? 'text-white bg-gradient-to-r from-emerald-500 to-cyan-600 shadow-lg'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-emerald-50 dark:hover:bg-slate-700/50'
