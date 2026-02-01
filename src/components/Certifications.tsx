@@ -20,9 +20,9 @@ const Certifications: React.FC = () => {
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center mb-16 md:mb-20">
           {/* Icon */}
-          <div className="inline-flex items-center justify-center mb-8">
+          <div className="flex items-center justify-center mb-8">
             <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-emerald-600 dark:bg-emerald-500 shadow-lg flex items-center justify-center">
-              <Award className="text-white" size={32} />
+              <Award className="text-white" size={40} />
             </div>
           </div>
           
@@ -145,7 +145,7 @@ const CertificationCard: React.FC<CertificationCardProps> = ({ certification, in
         
         {/* Credential ID */}
         {certification.credentialId && (
-          <div className="mb-4 p-2 bg-gray-100 dark:bg-dark-700 rounded text-xs text-gray-600 dark:text-gray-400">
+          <div className="mb-4 p-2 bg-gray-100 dark:bg-dark-700 rounded text-xs text-gray-600 dark:text-gray-400 text-center">
             <span className="font-semibold">ID:</span> {certification.credentialId}
           </div>
         )}

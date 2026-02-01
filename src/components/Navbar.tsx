@@ -48,8 +48,8 @@ const Navbar: React.FC = () => {
         ref={navRef}
         className={`fixed top-0 left-0 right-0 w-full z-[100] ${
           scrolled 
-            ? 'bg-white dark:bg-dark-800 shadow-xl border-b border-gray-200 dark:border-slate-700 py-3' 
-            : 'bg-white dark:bg-dark-800 py-4'
+            ? 'bg-white dark:bg-dark-900 shadow-xl border-b border-gray-200 dark:border-slate-700 py-3' 
+            : 'bg-white dark:bg-dark-900 py-4'
         } transition-all duration-300`}
         style={{ position: 'fixed' }}
       >
