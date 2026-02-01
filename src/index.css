@@ -2,6 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent white areas on over-scroll */
+html {
+  background: white;
+  overflow-x: hidden;
+}
+
+html.dark {
+  background: #080808;
+}
+
+body {
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Fake header to cover over-scroll at the top */
+body::before {
+  content: '';
+  position: fixed;
+  top: -100vh;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background: white;
+  z-index: -1;
+}
+
+html.dark body::before {
+  background: #080808;
+}
+
+/* Fake footer to cover over-scroll at the bottom */
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -100vh;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  background: white;
+  z-index: -1;
+}
+
+html.dark body::after {
+  background: #080808;
+}
+
 /* Custom utility classes */
 @layer utilities {
   .border-gradient-y-primary-secondary {
