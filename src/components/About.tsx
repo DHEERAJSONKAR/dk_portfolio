@@ -87,7 +87,7 @@ const About: React.FC = () => {
                     school: "St. Andrews Institute of Technology and Management, Gurugram",
                     period: "2024 - 2026",
                     icon: <Calendar size={14} />,
-                    status: "Current"
+                    status: "Completed"
                   },
                   {
                     degree: "BCA - Bachelor of Computer Applications",
